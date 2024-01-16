@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Cart;
 use App\Models\User;
+use App\Models\Order;
+use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Str;
 
 class UserController extends Controller
 {
@@ -47,6 +49,8 @@ class UserController extends Controller
         ]);
 
         if(Auth::attempt(['email' => $data['email'], 'password' => $data['password']])) {
+            
+
             return redirect()->intended('/');
         }
 
@@ -57,6 +61,6 @@ class UserController extends Controller
     {
         auth()->logout();
 
-        return redirect()->route('index');
+        return redirect()->route('home');
     }
 }

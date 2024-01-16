@@ -12,6 +12,7 @@
     <link rel="stylesheet" href="{{ url('assets/css/bootstrap.min.css') }}">
     <link rel="stylesheet" href="{{ url('assets/css/templatemo.css') }}">
     <link rel="stylesheet" href="{{ url('assets/css/custom.css') }}">
+    <link rel="stylesheet" href="{{ url('assets/css/order.scss') }}">
     <link rel="stylesheet" href="{{ url('assets/css/zay.css') }}">
 
     <!-- Load fonts style after rendering the layout styles -->
@@ -90,6 +91,10 @@ https://templatemo.com/tm-559-zay-shop
 	                    <a class="nav-icon position-relative text-decoration-none" href="{{ route('cart-index') }}">
 	                        <i class="fa fa-fw fa-cart-arrow-down text-dark mr-1"></i>
 	                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">{{ count(session()->get('cart')) }}</span>
+	                    </a>
+                        <a class="nav-icon position-relative text-decoration-none" href="{{ route('orders') }}">
+	                        <i class="fa fa-user" aria-hidden="true"></i>
+	                        <span class="position-absolute top-0 left-100 translate-middle badge rounded-pill bg-light text-dark">{{ count(session()->get('order')) }}</span>
 	                    </a>
 	                    <a class="nav-icon position-relative text-decoration-none" href="#">
 	                     {{ auth()->user()->firstname . ' ' . auth()->user()->lastname }}

@@ -1,9 +1,11 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
+use App\Http\Controllers\OrderController;
+use App\Http\Controllers\PaymentController;
+use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckOutController;
 /*
 |--------------------------------------------------------------------------
@@ -41,11 +43,17 @@ Route::middleware(['auth'])->group(function () {
     Route::put('/decrease/{cart}', [CartController::class, 'decrease'])->name('cart-decrease');
     Route::delete('/cart-clear/{user}', [CartController::class, 'clear'])->name('cart-clear');
 
-    // Payment
-    Route::get('/checkout',[ CheckOutController::class, 'index'])->name('checkout');
-    Route::post('/pay',[ CheckOutController::class, 'pay'])->name('pay');
-    Route::get('/mail',[ CheckOutController::class, 'test'])->name('test');
+    // Payment Routes
+    Route::get('/checkout', [ CheckOutController::class, 'index'])->name('checkout');
+    Route::post('/pay', [ CheckOutController::class, 'pay'])->name('pay');
+    Route::get('/mail', [ CheckOutController::class, 'test'])->name('test');
     Route::get('/order/confirmation/{reference?}',[CheckOutController::class, 'payCallback'])->name('callback_url');
+
+    //Order Routes
+    Route::get('/orders', [OrderController::class, 'index'])->name('orders');
+    Route::get('/orders/{order}', [OrderController::class, 'show'])->name('view-order');
+
+    Route::get('/payments', [PaymentController::class, 'index'])->name('payment');
 
 });
 

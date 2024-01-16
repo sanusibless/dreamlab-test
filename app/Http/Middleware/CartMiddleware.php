@@ -3,10 +3,11 @@
 namespace App\Http\Middleware;
 
 use Closure;
-use Illuminate\Http\Request;
-use Symfony\Component\HttpFoundation\Response;
-use Illuminate\Support\Facades\Session;
 use App\Models\Cart;
+use App\Models\Order;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Session;
+use Symfony\Component\HttpFoundation\Response;
 
 
 class CartMiddleware
@@ -21,7 +22,11 @@ class CartMiddleware
         
         if($request->user()) {
             session([
-                'cart' => Cart::where('user_id', $request->user()->id)->get()->toArray()
+                'cart' => Cart::where('user_id', auth()->user()->id)->get()->toArray()
+            ]);
+
+            session([
+                'order' => Order::where('user_id', auth()->user()->id)->where('status','pending')->get()->toArray()
             ]);
 
         }

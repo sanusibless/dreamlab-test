@@ -25,12 +25,17 @@ class CartController extends Controller
 
         $data = $request->validate([
             'product_id' => 'required|integer',
-            'quantity' => 'required|integer' 
+            'quantity' => 'required|integer',
+            'product_name' => 'required|string',
+            'price' => 'required|integer'
         ]);
 
         $data['user_id'] = $request->user()->id;
 
-        Cart::create($data);
+        Cart::updateOrCreate(
+            ['product_id' => $data['product_id'], 'user_id' => $data['user_id']],
+            ['price' =>$data['price'],'quantity'=> $data['quantity'], 'product_name' => $data['product_name']]
+        );
 
         return back()->with('success', "Item added to cart");
     }

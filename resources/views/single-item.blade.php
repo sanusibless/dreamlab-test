@@ -60,6 +60,8 @@
                                 @csrf
                                 @method('POST')
                                 <input type="hidden" name="product_id" value="{{ $product->id }}">
+                                <input type="hidden" name="price" value="{{ $product->price }}">
+                                <input type="hidden" name="product_name" value="{{ $product->name }}">
                                 <div class="row" >
                                     <div class="col-auto">
                                         <ul class="list-inline pb-3">

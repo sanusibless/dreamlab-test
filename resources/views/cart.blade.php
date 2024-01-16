@@ -1,6 +1,6 @@
 @extends('layout')
    @section('title')
-   	Products - Zay
+   Carts - Zay
    @endsection
    @section('content')
    	<section class="h-100" style="background-color: #eee;">

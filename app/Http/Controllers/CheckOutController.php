@@ -2,17 +2,19 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Http;
-use Illuminate\Support\Facades\Mail;
-use Illuminate\Support\Facades\Notification;
 use App\Models\Cart;
+use App\Models\User;
 use App\Models\Order;
 use App\Models\Product;
-use App\Models\User;
+use App\Models\OrderItem;
+use App\Models\Payment;
+use Illuminate\Http\Request;
 use App\Mail\OrderSuccessMail;
+use Illuminate\Support\Facades\Http;
+use Illuminate\Support\Facades\Mail;
 use App\Notifications\OrderNotification;
 use App\Notifications\OrdersNotification;
+use Illuminate\Support\Facades\Notification;
 
 class CheckOutController extends Controller 
 {
@@ -67,20 +69,37 @@ class CheckOutController extends Controller
             'reference' => $details->reference,
             'amount' => $details->amount / 100,
             'time' => $details->paidAt
-        ];
+           ];
         
-        $user_email = $request->user()->email;
-        
-        foreach(User::findOrFail(auth()->user()->id)->carts as $cart) {
+            $user_email = $request->user()->email;
+            $total = 0;
+            foreach(User::findOrFail(auth()->user()->id)->carts as $cart) {
+                $total += $cart->price * $cart->quantity;
+                OrderItem::create([
+                    'order_id' => $order['id'],
+                    'product_name' => $cart->product_name,
+                    'product_id' => $cart->product_id,
+                    'price' => $cart->price,
+                    'quantity' => $cart->quantity,
+                ]);
+
+                $cart->delete();
+            }
+
             Order::create([
                 'order_id' => $order['id'],
-                'product_id' => $cart->product_id,
-                'user_id' => $cart->user_id,
-                'quantity' => $cart->quantity
+                'user_id' => $request->user()->id,
+                'total_amount' => $total
             ]);
 
-            $cart->delete();
-        }
+            Payment::create([
+                'reference' => $order['reference'],
+                'amount' => $order['amount'],
+                'order_id' => $order['id'],
+                'user_id' => auth()->user()->id,
+                'status' => $order['status']
+            ]);
+            
             Notification::route('mail', $user_email)->notify(new OrdersNotification($order));
                   
             return view('order.success');
@@ -107,18 +126,5 @@ class CheckOutController extends Controller
             'Authorization' => 'Bearer '. env('PAYSTACK_SECRET_KEY'),
             'Cache-Control' => 'no-cache'
         ])->get($url);
-    }
-
-    public function test()
-    {
-        $user = auth()->user()->email;
-         $order = [
-            'id' => rand(4000, 10000000),
-            'status' => 'success',
-            'reference' => rand(4000, 10000000),
-            'amount' => 200000,
-            'time' => date('M-D-Y')
-        ];
-        Notification::route('mail', $user)->notify(new OrdersNotification($order));
     }
 }
