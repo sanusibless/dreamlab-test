@@ -30,7 +30,7 @@
               <table class="table">
                 <thead>
                     <tr>
-                        <th>Item ID</th>
+                        <th>S/N</th>
                         <th>Product Name</th>
                         <th>Quantity</th>
                         <th>Price</th>
@@ -40,7 +40,7 @@
                 <tbody id="orderItemsTableBody">
                   @foreach($order->orderItems as $item)
                   <tr>
-                    <td>{{ $item->id }}</td>
+                    <td>{{ $loop->iteration }}</td>
                     <td>{{ $item->product_name }}</td>
                     <td>{{ $item->quantity }}</td>
                     <td>${{ $item->price }}</td>

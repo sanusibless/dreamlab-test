@@ -13,7 +13,7 @@
             <div class="row w-100 no-gutters mb-3">
                 <div class="col-6 col-md">
                   <h6 class="text-charcoal mb-0 w-100">Order Number</h6>
-                  <a href="{{ route('view-order', ['order' => $order->order_id ]) }}" class="text-pebble mb-0 w-100 mb-2 mb-md-0">{{ $order->order_id }}</a>
+                  <a href="{{ route('view-order', ['order' => $order->order_id ]) }}" class="text-pebble text-dark text-decoration-none mb-0 w-100 mb-2 mb-md-0">{{ $order->order_id }}</a>
                 </div>
                 <div class="col-6 col-md">
                   <h6 class="text-charcoal mb-0 w-100">Date</h6>
@@ -30,6 +30,9 @@
                 <div class="col-6 col-md"> 
                   <h6 class="text-charcoal mb-0 w-100">Status</h6>
                   <p class="text-pebble mb-0 w-100 mb-2 mb-md-0">{{ $order->status }}</p> 
+                </div>
+                <div class="col-12 col-md">
+                  <a href="{{ route('view-order', ['order' => $order->order_id ]) }}" class="btn btn-dark w-100">View Order</a>
                 </div>
               </div>
             @empty

@@ -42,8 +42,8 @@
                     <td>{{ $record->reference}}</td>
                     <td>${{ $record->amount }}</td>
                     <td class="{{ $record->status == 'success' ? 'text-success' : 'text-secondary' }}">{{ $record->status }}</td>
-                    <td>{{ explode(' ',$record->created_at)[0] }}</td>
-                    <td>{{ explode(' ',$record->created_at)[1] }}</td>
+                    <td>{{ explode(' ', $record->created_at)[0] }}</td>
+                    <td>{{ explode(' ', $record->created_at)[1] }}</td>
                   </tr>
                   @endforeach
                 </tbody>
