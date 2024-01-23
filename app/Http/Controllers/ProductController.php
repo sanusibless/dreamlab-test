@@ -17,11 +17,20 @@ class ProductController extends Controller
         $this->string = $string;
     }
 
-    public function index()
+    public function index(Request $request)
     {
+        $search = $request->query('search');
+
+        if($search) {
+            return view('products', [
+                'products' => Product::filter($search)->paginate()
+            ]);
+        }
+        
         return view('products', [
-            'products' => Product::all()
+            'products' => Product::paginate(5)
         ]);
+
     }
 
     public function show(Product $product)

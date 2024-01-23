@@ -60,13 +60,14 @@
                         </ul>
                     </div>
                     <div class="col-md-6 pb-4">
-                        <div class="d-flex">
-                            <select class="form-control">
-                                <option>Featured</option>
-                                <option>A to Z</option>
-                                <option>Item</option>
-                            </select>
-                        </div>
+                            <form action="{{ route('products') }}" class="d-flex jsu">
+                                
+                                <input class="form-control" name="search" placeholder="Search" value="{{ Request::query('search') ?? '' }}">
+                                <button type="submit" class="btn btn-sm btn-dark text-small" name="submit">
+                                    <i class="fa fa-search">
+                                    </i>
+                                </button>
+                            </form>
                     </div>
                 </div>
                 <div class="row">
