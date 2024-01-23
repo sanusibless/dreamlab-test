@@ -10,6 +10,18 @@ use App\Models\User;
 
 class ProductController extends Controller
 {
+    private $string;
+
+    public function __construct($string)
+    {
+        $this->string = $string;
+    }
+
+    public function index()
+    {
+        dd(request()->string('type')->upper());
+    }
+
     public function all()
     {
         return view('shop', [

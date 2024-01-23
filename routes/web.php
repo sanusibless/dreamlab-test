@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\App;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\CartController;
 use App\Http\Controllers\UserController;
@@ -66,3 +67,7 @@ Route::name('user.')->group(function () {
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 });
 
+Route::get('/test', [ProductController::class, 'index']);
+Route::get('/maintenance', function() {
+    return view('maintenance');
+});
