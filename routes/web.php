@@ -31,9 +31,11 @@ Route::get('/contact', function () {
     return view('contact');
 })->name('contact');
 
-Route::get('/shop', [ProductController::class, 'all'] )->name('products');
+Route::get('/products', [ProductController::class, 'index'] )->name('products');
+Route::get('/products/{product}', [ProductController::class, 'show'])->name('product');
+
 Route::get('/load/{num}', [ProductController::class, 'load'] );
-Route::get('/single-item/{product}', [ProductController::class, 'single'])->name('product');
+
 
 Route::middleware(['auth'])->group(function () {
     // Cart Routes

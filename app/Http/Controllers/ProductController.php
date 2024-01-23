@@ -19,19 +19,14 @@ class ProductController extends Controller
 
     public function index()
     {
-        dd(request()->string('type')->upper());
-    }
-
-    public function all()
-    {
-        return view('shop', [
+        return view('products', [
             'products' => Product::all()
         ]);
     }
 
-    public function single(Product $product)
+    public function show(Product $product)
     {
-        return view('single-item', compact('product'));
+        return view('product', compact('product'));
     }
 
     public function load(Request $request, $num)
