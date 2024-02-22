@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers;
 
-use Illuminate\Http\Request;
 use App\Models\Cart;
-use App\Models\Product;
 use App\Models\User;
+use App\Models\Product;
+use Illuminate\Http\Request;
+use RealRashid\SweetAlert\Facades\Alert;
 
 class CartController extends Controller
 {
@@ -36,15 +37,21 @@ class CartController extends Controller
             ['product_id' => $data['product_id'], 'user_id' => $data['user_id']],
             ['price' =>$data['price'],'quantity'=> $data['quantity'], 'product_name' => $data['product_name']]
         );
+        
+        Alert::success('Success', 'Item added to cart successfully');
 
-        return back()->with('success', "Item added to cart");
+        return back();
     }
 
     public function removeItem(Request $request, Cart $cart)
-    {
+    {   
+        // confirmDelete('Are you sure you want to remove this item from cart');
+
         $cart->delete();
 
-        return back()->with("success", "Item has been removed from cart");
+        Alert::success('Success', 'Item is now removed');
+
+        return back();
     }
 
     public function increase(Cart $cart) {
@@ -52,12 +59,16 @@ class CartController extends Controller
 
         $cart->save();
 
+        Alert::success('Success', 'Item quantity has increased!');
+
         return back();
     }
 
     public function decrease(Cart $cart) {
         
-        if($cart->quantity == 0) {
+        if($cart->quantity == 1) {
+            Alert::warning('Too low', 'You cannot have less than 1 item');
+
             return back();
         }
         $cart->quantity -= 1;
@@ -69,8 +80,12 @@ class CartController extends Controller
 
     public function clear(User $user) 
     {   
+        confirmDelete('Are you sure you want to clear your cart?');
+
         $user->carts()->delete();
 
-        return back()->with("success", "Cart Cleared!");
+        Alert::success("Success", "Cart Cleared!");
+
+        return back();
     }
 }

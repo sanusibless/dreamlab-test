@@ -50,11 +50,7 @@ https://templatemo.com/tm-559-zay-shop
 	        </div>
 	    </nav>
     <!-- Close Top Nav -->
-    @if(session('success'))
-    	<div id="alert" class="info" role="alert">
-  			<p>{{ session('success') }}</p>
-  		</div>
-    @endif
+    @include('sweetalert::alert')
     <!-- Header -->
 	    <nav class="navbar navbar-expand-lg navbar-light shadow">
 	        <div class="container d-flex justify-content-between align-items-center">

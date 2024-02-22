@@ -41,7 +41,7 @@ Route::middleware(['auth'])->group(function () {
     // Cart Routes
     Route::get('/cart', [CartController::class, 'index'])->name('cart-index');
     Route::post('/add-to-cart', [CartController::class, 'addToCart'])->name('add-to-cart');
-    Route::delete('/remove-item/{cart}', [CartController::class, 'removeItem'])->name('remove-item');
+    Route::get('/remove-item/{cart}', [CartController::class, 'removeItem'])->name('remove-item');
     Route::put('/increase/{cart}', [CartController::class, 'increase'])->name('cart-increase');
     Route::put('/decrease/{cart}', [CartController::class, 'decrease'])->name('cart-decrease');
     Route::delete('/cart-clear/{user}', [CartController::class, 'clear'])->name('cart-clear');
@@ -73,3 +73,5 @@ Route::get('/test', [ProductController::class, 'index']);
 Route::get('/maintenance', function() {
     return view('maintenance');
 });
+
+?>

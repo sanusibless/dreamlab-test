@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Jobs\EmailNotificationJob;
 use App\Models\Cart;
 use App\Models\User;
 use App\Models\Order;
@@ -35,6 +36,7 @@ class CheckOutController extends Controller
 
     public function pay(Request $request)
     {
+        
         $data = $request->validate([
             'email' => 'required|email',
             'amount' => 'required|integer',
@@ -42,6 +44,8 @@ class CheckOutController extends Controller
         ]);
 
         $data['amount'] = $data['amount'] * 100;
+        $data['subaccount'] = config('paystack.sub_account');
+        $data['split_code'] = config('paystack.split_code');
 
         $pay = $this->initiatePayment($data);
 
@@ -99,9 +103,9 @@ class CheckOutController extends Controller
                 'user_id' => auth()->user()->id,
                 'status' => $order['status']
             ]);
-            
-            Notification::route('mail', $user_email)->notify(new OrdersNotification($order));
-                  
+
+            dispatch(new EmailNotificationJob(request()->user(), $order))->delay(now()->addMinutes(2));
+
             return view('order.success');
         } else {
             return view('order.error');

@@ -12,7 +12,10 @@ return [
     'merchant_email' => env('MERCHANT_EMAIL'),
 
 
-    'url' => env('PAYSTACK_PAYMENT_URL')
+    'url' => env('PAYSTACK_PAYMENT_URL'),
+
+    'sub_account' => env('SUBACCOUNT'),
+    'split_code' => env('SPLIT_CODE')
 
 ];
 

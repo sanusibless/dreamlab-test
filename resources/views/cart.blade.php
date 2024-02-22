@@ -54,12 +54,10 @@
               <div class="col-md-3 col-lg-2 col-xl-2 offset-lg-1">
                 <h5 class="mb-0">${{ $cart['price'] }}</h5>
               </div>
-              <div class="col-md-1 col-lg-1 col-xl-1 text-end">
-                <form action="{{ route('remove-item', ['cart' => $cart['id'] ]) }}" method="POST">
-                  @csrf
-                  @method('DELETE')
-                  <button title="remove item" type="submit" name="submit" class="btn text-danger"><i class="fas fa-trash fa-lg"></i></button>
-                </form>
+              <div class="col-md-1 col-lg-1 col-xl-1 text-end text-small">
+                <a href="{{ route('remove-item', ['cart' => $cart['id'] ]) }}" class="btn-sm btn-danger" data-confirm-delete="true" method="POST">
+                 <i class="fas fa-trash fa-sm"></i>
+                </a>
               </div>
             </div>
           </div>

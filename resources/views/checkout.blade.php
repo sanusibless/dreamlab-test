@@ -99,6 +99,10 @@
 
     currency: 'NGN', // Use GHS for Ghana Cedis or USD for US Dollars
 
+    subaccount: 'ACCT_6a3ji7nrykwkgxn',
+
+    share: "20",
+
     ref: Number(Math.floor(Math.random() * 1000000000000000)).toPrecision(), // Replace with a reference you generated
 
     callback: function(response) {
