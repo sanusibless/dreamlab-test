@@ -109,7 +109,7 @@
                     @endforeach
                 </div>
                 <div div="row">
-                    <ul class="pagination pagination-lg justify-content-end">
+                    <ul class="pagination pagination-md justify-content-end align-center">
                         {{ $products->links() }}
                     </ul>
                 </div>
