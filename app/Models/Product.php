@@ -20,4 +20,9 @@ class Product extends Model
     {
         $query->where('name','like',"%" . $search . "%");
     }
+
+    public function scopeCategory(Builder $query, $category, $sub_category)
+    {
+        $query->where('category', $category)->where('sub_category', $sub_category);
+    }
 }

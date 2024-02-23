@@ -33,8 +33,10 @@ Route::get('/contact', function () {
 
 Route::get('/products', [ProductController::class, 'index'] )->name('products');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('product');
+Route::get('/products/category/{category:name}/subcategory/{sub_category:name}', [ProductController::class, 'category'])->name('products-category');
 
 Route::get('/load/{num}', [ProductController::class, 'load'] );
+Route::get('/categories', [ProductController::class, 'seedCategory'] );
 
 
 Route::middleware(['auth'])->group(function () {
@@ -69,9 +71,5 @@ Route::name('user.')->group(function () {
     Route::get('/logout', [UserController::class, 'logout'])->name('logout');
 });
 
-Route::get('/test', [ProductController::class, 'index']);
-Route::get('/maintenance', function() {
-    return view('maintenance');
-});
 
 ?>

@@ -17,8 +17,6 @@ return new class extends Migration
             $table->string('image');
             $table->integer('price');
             $table->integer('rating');
-            $table->integer('category_id');
-            $table->integer('sub_category_id');
             $table->timestamps();
         });
     }
