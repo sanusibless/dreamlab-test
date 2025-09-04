@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Category;
+use App\Models\SubCategory;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -17,6 +19,9 @@ return new class extends Migration
             $table->string('image');
             $table->integer('price');
             $table->integer('rating');
+            $table->foreignIdFor(Category::class);
+            $table->foreignIdFor(SubCategory::class);
+            $table->string('gender');
             $table->timestamps();
         });
     }

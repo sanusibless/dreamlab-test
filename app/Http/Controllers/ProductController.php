@@ -77,35 +77,6 @@ class ProductController extends Controller
 
     public function seedCategory()
     {
-        Category::create([
-            'name' => 'gender'
-        ]);
-        Category::create([
-            'name' => 'product'
-        ]);
-        SubCategory::create([
-            'name' => 'male',
-            'category_id' => 1,
-        ]);
-        SubCategory::create([
-            'name' => 'female',
-            'category_id' => 1,
-        ]);
-        SubCategory::create([
-            'name' => 'bag',
-            'category_id' => 2,
-        ]);
-        SubCategory::create([
-            'name' => 'sweather',
-            'category_id' => 2,
-        ]);
-        SubCategory::create([
-            'name' => 'glasses',
-            'category_id' => 2,
-        ]);
-
-        return response()->json([
-            'message' => 'success'
-        ]);
+        
     }
 }

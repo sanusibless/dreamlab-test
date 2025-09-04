@@ -8,6 +8,9 @@ use App\Http\Controllers\OrderController;
 use App\Http\Controllers\PaymentController;
 use App\Http\Controllers\ProductController;
 use App\Http\Controllers\CheckOutController;
+use App\Http\Controllers\ContactController;
+use Inertia\Inertia;
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,23 +23,21 @@ use App\Http\Controllers\CheckOutController;
 */
 
 Route::get('/', function () {
-    return view('index');
+    return inertia('Home/Index');
 })->name('home');
 
 Route::get('/about', function () {
-    return view('about');
+    return inertia('Home/About');
 })->name("about");
 
-Route::get('/contact', function () {
-    return view('contact');
-})->name('contact');
+Route::get('/contact', [ContactController::class, 'index'])->name('contact');
 
 Route::get('/products', [ProductController::class, 'index'] )->name('products');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('product');
 Route::get('/products/category/{category:name}/subcategory/{sub_category:name}', [ProductController::class, 'category'])->name('products-category');
 
 Route::get('/load/{num}', [ProductController::class, 'load'] );
-Route::get('/categories', [ProductController::class, 'seedCategory'] );
+Route::get('/categories', [ProductController::class, 'seedCategory']);
 
 
 Route::middleware(['auth'])->group(function () {
