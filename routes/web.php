@@ -31,6 +31,7 @@ Route::get('/about', function () {
 })->name("about");
 
 Route::get('/contact', [ContactController::class, 'index'])->name('contact');
+Route::post('/contact', [ContactController::class, 'storeContact'])->name('contact.store');
 
 Route::get('/products', [ProductController::class, 'index'] )->name('products');
 Route::get('/products/{product}', [ProductController::class, 'show'])->name('product');

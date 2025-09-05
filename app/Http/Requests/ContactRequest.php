@@ -2,7 +2,9 @@
 
 namespace App\Http\Requests;
 
+use Illuminate\Contracts\Validation\Validator;
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Http\Exceptions\HttpResponseException;
 
 class ContactRequest extends FormRequest
 {
@@ -28,4 +30,11 @@ class ContactRequest extends FormRequest
             'message' => 'required',
         ];
     }
+
+    protected function failedValidation(Validator $validator)
+    {
+
+        throw new HttpResponseException(redirect()->back()->withErrors($validator->errors())->withInput(), 422);
+    }
+
 }
